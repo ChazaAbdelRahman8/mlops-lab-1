@@ -49,3 +49,15 @@ docker history food11-api:latest
 Without `.dockerignore`, Docker sends unnecessary files such as the dataset, `.venv`, Git history, and MLflow files to the build context. This makes builds slower and can increase the image size.
 
 The most problematic folders are `.venv/` and `data/` because they can be very large and may unnecessarily bloat the build context.
+## Question 7
+
+The container cannot use `127.0.0.1:5000` to reach MLflow because `127.0.0.1` inside the container refers to the container itself, not the host machine.
+
+On Docker Desktop for Windows, `host.docker.internal` resolves to the host computer, so the container can use it to access the MLflow server running on the host.
+## Question 8
+
+Yes. A new container created from the same Docker image loads the model correctly without rebuilding the image.
+
+The application code and Python dependencies are baked into the Docker image, while the `champion` model is fetched from MLflow at runtime.
+
+This means the same Docker image can serve a different model version if the `champion` alias is reassigned in MLflow.
