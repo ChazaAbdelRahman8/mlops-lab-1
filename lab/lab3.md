@@ -61,3 +61,11 @@ Yes. A new container created from the same Docker image loads the model correctl
 The application code and Python dependencies are baked into the Docker image, while the `champion` model is fetched from MLflow at runtime.
 
 This means the same Docker image can serve a different model version if the `champion` alias is reassigned in MLflow.
+
+## Question 9
+
+The Dockerfile is versioned in Git, but the built Docker image currently exists only on the local machine.
+
+To allow another machine, CI runner, or Kubernetes cluster to reliably run the exact same image, the image must be pushed to a container registry such as Docker Hub, GitHub Container Registry, or another registry.
+
+It is also better to use a specific version tag or image digest instead of only `latest`, so the exact image version can be pulled and reproduced.
